@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<a id="open-ok" href="#">Open link</a>
+	<a id="open-blocked" href="#">Open link (blocked)</a>
+</head>
+<body>
+	<script>
+		var okLink = document.getElementById("open-ok");
+
+		okLink.addEventListener("click", function() {
+			window.open("https://www.if.fi");
+		});
+
+		var blockedLink = document.getElementById("open-blocked");
+		
+		blockedLink.addEventListener("click", function() {
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', 'http://example.com');
+			xhr.onload = function() {
+			    window.open("https://www.if.fi");
+			};
+			xhr.send();
+
+		});
+	</script>
+</body>
+</html>
