@@ -18,7 +18,7 @@
 		blockedLink.addEventListener("click", function() {
 			return new Promise(function(resolve, reject) {
 					var xhr = new XMLHttpRequest();
-					xhr.open('GET', 'https://example.com');
+					xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1');
 					xhr.onload = function() {
 						resolve();
 					};
