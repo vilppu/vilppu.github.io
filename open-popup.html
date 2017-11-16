@@ -16,14 +16,17 @@
 		var blockedLink = document.getElementById("open-blocked");
 		
 		blockedLink.addEventListener("click", function() {
-
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', 'https://example.com');
-			xhr.onload = function() {
-			    window.open("https://www.if.fi");
-			};
-			xhr.send();
-
+			return new Promise(function(resolve, reject) {
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', 'https://example.com');
+					xhr.onload = function() {
+						resolve();
+					};
+				xhr.send();
+			})
+			.then(function() {
+				window.open("https://www.if.fi");
+			});
 		});
 	</script>
 </body>
