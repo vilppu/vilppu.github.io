@@ -3,26 +3,38 @@
 <head>
 	<title></title>
 	<div>
-		<a id="open-ok" href="#">Open link</a>
+		<a id="open-async" href="#">Open link (after asynchronous ajax)</a>
 	</div>
+
 	<div>
-		<a id="open-blocked" href="#">Open link (blocked)</a>
+		<a id="open-sync" href="#">Open link (after synchronous ajax)</a>
 	</div>
 </head>
 <body>
 	<script>
-		var okLink = document.getElementById("open-ok");
-
-		okLink.addEventListener("click", function() {
-			window.open("https://www.if.fi");
-		});
-
-		var blockedLink = document.getElementById("open-blocked");
+		var openAsyncLink = document.getElementById("open-async");
 		
-		blockedLink.addEventListener("click", function() {
+		openAsyncLink.addEventListener("click", function() {
 			return new Promise(function(resolve, reject) {
 					var xhr = new XMLHttpRequest();
-					xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1');
+					xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1', true);
+					xhr.onload = function() {
+						resolve();
+					};
+				xhr.send();
+			})
+			.then(function() {
+				window.open("https://www.if.fi");
+			});
+		});
+
+
+		var openSyncLink = document.getElementById("open-sync");
+		
+		openSyncLink.addEventListener("click", function() {
+			return new Promise(function(resolve, reject) {
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', 'https://jsonplaceholder.typicode.com/posts/1', false);
 					xhr.onload = function() {
 						resolve();
 					};
